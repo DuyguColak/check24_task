@@ -66,16 +66,15 @@
                   {
                  ?>
                     <div class="blog-item">
-                        <img class="img-responsive img-blog" src="images/blog/<?php echo $article['articleimage']; ?>" width="100%" alt="" />
+                        <a href="article.php?id=<?php echo $article['articleid']; ?>"><img class="img-responsive img-blog" src="images/blog/<?php echo $article['articleimage']; ?>" width="100%" alt="" /></a>
                         <div class="blog-content">
-                            <a href="blog-item.html"><h3><?php echo $article['articletitle']; ?></h3></a>
+                            <h3><?php echo $article['articletitle']; ?></h3>
                             <div class="entry-meta">
-                                <span><i class="icon-user"></i> <a href="#"><?php echo $article['name']; ?></a></span>
-                                <span><i class="icon-calendar"></i><?php echo $article['articledate']; ?></span>
-                                <span><i class="icon-comment"></i> <a href="blog-item.html#comments"><?php echo $article['noc']; ?> Comments</a></span>
+                                <span><i class="icon-user"></i> <?php echo $article['name']; ?></span>
+                                <span><i class="icon-calendar"></i><a href="article.php?id=<?php echo $article['articleid']; ?>"><?php echo $article['articledate']; ?></a></span>
+                                <span><i class="icon-comment"></i> <a href="article.php?id=<?php echo $article['articleid']; ?>"><?php echo $article['noc']; ?> Comments</a></span>
                             </div>
-                            <p>
-                            <?php echo (strlen($article['articletext']) > 1000?substr($article['articletext'],0,1000).'... ':$article['articletext']); ?></p>
+                            <p><a href="article.php?id=<?php echo $article['articleid']; ?>"><?php echo (strlen($article['articletext']) > 1000?substr($article['articletext'],0,1000).'... ':$article['articletext']); ?></a></p>
                             <?php 
                                 if (strlen($article['articletext']) > 1000){
                             ?>
