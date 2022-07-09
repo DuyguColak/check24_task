@@ -74,21 +74,28 @@
                                 <span><i class="icon-calendar"></i><?php echo $article['articledate']; ?></span>
                                 <span><i class="icon-comment"></i> <a href="blog-item.html#comments"><?php echo $article['noc']; ?> Comments</a></span>
                             </div>
-                            <p><?php echo $article['articletext']; ?></p>
-                            <a class="btn btn-default" href="#">Read More <i class="icon-angle-right"></i></a>
+                            <p>
+                            <?php echo (strlen($article['articletext']) > 1000?substr($article['articletext'],0,1000).'... ':$article['articletext']); ?></p>
+                            <?php 
+                                if (strlen($article['articletext']) > 1000){
+                            ?>
+                                <a class="btn btn-default" href="#">Read More <i class="icon-angle-right"></i></a>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div><!--/.blog-item-->
                  <?php
                   }
-                ?> 
+                  ?> 
                     <ul class="pagination pagination-lg">
-                        <li><a href="#"><i class="icon-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><i class="icon-angle-right"></i></a></li>
+                        <?php
+                          for($i = 1; $i <= ceil ($noArticles / 3); $i++ ) {
+                        ?>
+                           <li><a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                        <?php
+                          }
+                        ?>
                     </ul><!--/.pagination-->
                 </div>
             </div><!--/.col-md-8-->

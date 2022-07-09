@@ -4,12 +4,15 @@
 class Articles extends Dbh{
 
   // fetch all articles
-  protected function getArticles(){
+  protected function getArticles($page_number){
     // fecth all data from articles, article author, number of comments for the article
+    $limit = 3;
+    $initial_page = ($page_number-1) * $limit;   
     $sql = "SELECT  ar.*
                   , CONCAT(u.firstname, ' ', u.lastname) AS name
                   ,(SELECT count(*) FROM comments c WHERE c.articleid = ar.articleid) AS noc
-     FROM articles ar, users u WHERE ar.authorid = u.userid";
+     FROM articles ar, users u WHERE ar.authorid = u.userid
+     LIMIT $initial_page, $limit";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     
@@ -25,6 +28,15 @@ class Articles extends Dbh{
     $stmt->execute([$authorid, date("Y-m-d"),$articletitle, $articletext, $articleimage]); 
   }
   
+  // get number of articles for pagination
+  protected function getNOArticles(){  
+    $sql = "SELECT  count(*) AS noArticles FROM articles";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute();
+    
+    $result = $stmt->fetchColumn();
+    return $result;
+  }  
 
   
 }  

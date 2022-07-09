@@ -12,8 +12,8 @@ class ArticlesContr extends Articles{
   // methods
   
   // list all articles for index page
-  public function listArticles(){
-    return $this->getArticles();  
+  public function listArticles($page_number){
+    return $this->getArticles($page_number);  
   }    
   
   // add new article 
@@ -25,7 +25,10 @@ class ArticlesContr extends Articles{
     $this->setArticle($this->authorid, $this->articletitle, $this->articletext, $this->articleimage);
   }    
   
-  
+  // get number of all articles for pagination
+  public function countArticles(){
+    return $this->getNOArticles();  
+  }  
 
 
 }  
