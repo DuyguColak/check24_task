@@ -1,5 +1,8 @@
 <?php
  include "includes/session.inc.php";
+ if (!isset($_SESSION['userid'])){
+  header("location: index.php");
+ }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Check24 - Articles</title>
+    <title>Check24 - New Article</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -51,49 +54,47 @@
                 </ul>
             </div>
         </div>
-    </header><!--/header-->
+    </header><!--/header--> 
 
-    <section id="blog" class="container">
-        <div class="row">
-            <aside class="col-sm-4 col-sm-push-8">
-                <div></div>
-            </aside>        
-            <div class="col-sm-8 col-sm-pull-4">
-                <div class="blog">
-                 <?php 
-                  include "includes/articles.inc.php";
-                  foreach ($articles as $article)
-                  {
-                 ?>
-                    <div class="blog-item">
-                        <img class="img-responsive img-blog" src="images/blog/<?php echo $article['articleimage']; ?>" width="100%" alt="" />
-                        <div class="blog-content">
-                            <a href="blog-item.html"><h3><?php echo $article['articletitle']; ?></h3></a>
-                            <div class="entry-meta">
-                                <span><i class="icon-user"></i> <a href="#"><?php echo $article['name']; ?></a></span>
-                                <span><i class="icon-calendar"></i><?php echo $article['articledate']; ?></span>
-                                <span><i class="icon-comment"></i> <a href="blog-item.html#comments"><?php echo $article['noc']; ?> Comments</a></span>
-                            </div>
-                            <p><?php echo $article['articletext']; ?></p>
-                            <a class="btn btn-default" href="#">Read More <i class="icon-angle-right"></i></a>
-                        </div>
-                    </div><!--/.blog-item-->
-                 <?php
-                  }
-                ?> 
-                    <ul class="pagination pagination-lg">
-                        <li><a href="#"><i class="icon-angle-left"></i></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><i class="icon-angle-right"></i></a></li>
-                    </ul><!--/.pagination-->
+    <section id="articles" class="container">      
+        <div id="comment-form">
+            <h4>New Article</h4>
+            <form action="includes/new_article.inc.php" method="post" class="form-horizontal" role="form">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <select id="authorid" name="authorid" class="form-control" aria-label="Default select example">
+                          <option selected>Authors</option>
+                          <?php 
+                            include "includes/authors.inc.php";
+                            foreach ($authors as $author)
+                            {
+                          ?>
+                            <option value="<?php echo $author['userid']; ?>"><?php echo $author['firstname']. " ".$author['lastname'] ; ?></option>
+                          <?php
+                            }
+                          ?>         
+                       </select>
+                    </div>  
+                    <div class="col-sm-6">
+                        <input type="text" id="articletitle" name="articletitle" class="form-control" placeholder="Title" required>
+                    </div>
                 </div>
-            </div><!--/.col-md-8-->
-        </div><!--/.row-->
-    </section><!--/#blog-->
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <textarea id="articletext" name="articletext" class="form-control" placeholder="ArticleText" required></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">                   
+                    <div class="col-sm-12">
+                      <input type="file" class="form-control" id="articleimage" name="articleimage" aria-describedby="fileupload" aria-label="Upload">
+                      <label class="input-group-text" for="articleimage">Upload</label>
+                    </div>
+                </div>              
+                <button type="submit" name="submit"  class="btn btn-danger">Add</button>
+            </form>
+        </div><!--/#comment-form-->        
+    </section><!--/#articles-->
+
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
