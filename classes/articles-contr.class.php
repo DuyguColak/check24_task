@@ -28,7 +28,11 @@ class ArticlesContr extends Articles{
   // get number of all articles for pagination
   public function countArticles(){
     return $this->getNOArticles();  
-  }  
+  } 
+  
+  public function readArticle($articleid){
+    return $this->getArticle($articleid);  
+  }    
 
 
 }  

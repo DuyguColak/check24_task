@@ -12,7 +12,9 @@ class Articles extends Dbh{
                   , CONCAT(u.firstname, ' ', u.lastname) AS name
                   ,(SELECT count(*) FROM comments c WHERE c.articleid = ar.articleid) AS noc
      FROM articles ar, users u WHERE ar.authorid = u.userid
-     LIMIT $initial_page, $limit";
+     ORDER BY ar.articledate
+     LIMIT $initial_page, $limit
+     ";
     $stmt = $this->connect()->prepare($sql);
     $stmt->execute();
     
@@ -38,5 +40,19 @@ class Articles extends Dbh{
     return $result;
   }  
 
+  // gets a specific article with articleid
+  protected function getArticle($articleid){
+    $sql = "SELECT  a.*
+                   ,CONCAT(u.firstname, ' ', u.lastname) AS name 
+            FROM    articles a
+                   ,users u 
+            WHERE a.authorid = u.userid 
+            AND   a.articleid = ?";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([$articleid]);
+    
+    $result = $stmt->fetch();
+    return $result;
+  }
   
 }  
