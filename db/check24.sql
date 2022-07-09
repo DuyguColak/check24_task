@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 09, 2022 at 08:13 AM
+-- Generation Time: Jul 09, 2022 at 09:29 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,7 +37,14 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `articleimage` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`articleid`),
   KEY `authorid` (`authorid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`articleid`, `authorid`, `articledate`, `articletitle`, `articletext`, `articleimage`) VALUES
+(1, 1, '2022-07-09', 'Change car insurance - that\'s how it works', 'You can always change your car insurance :\r\n\r\nAt the end of the current car insurance contract\r\nIn the event of a premium increase', 'images/blog/blog1.jpg');
 
 -- --------------------------------------------------------
 
@@ -74,14 +81,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `dateofbirth` date DEFAULT NULL,
   `type` varchar(100) NOT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`userid`, `username`, `password`, `email`, `firstname`, `lastname`, `dateofbirth`, `type`) VALUES
-(1, 'Duygu', '$2y$10$NuT/JMfxv3McISw1NIkheeibkjgbRhVAlcGgZQ7kHHn5QzStDGwz.', 'duygu@c.com', NULL, NULL, NULL, 'author');
+(1, 'Duygu', '$2y$10$NuT/JMfxv3McISw1NIkheeibkjgbRhVAlcGgZQ7kHHn5QzStDGwz.', 'duygu@c.com', 'Duygu', 'Colak', NULL, 'author');
 
 --
 -- Constraints for dumped tables
